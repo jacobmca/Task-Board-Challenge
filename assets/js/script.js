@@ -26,7 +26,6 @@ function createTaskCard(task) {
         </div>
     `;
 
-    //Alter Color Based on Due Date
     const dueDate = new Date(task.taskDate);
     const currentDate = new Date();
     const timeDiff = dueDate.getTime() - currentDate.getTime();
@@ -38,10 +37,21 @@ function createTaskCard(task) {
         taskCard = $(taskCard).addClass("bg-warning border-warning text-white");
     }
 
-    // Check if the task is in "Done" status and apply white background
     if (task.status === "done") {
         taskCard = $(taskCard)
             .addClass("bg-light border-dark text-dark")
+            .removeClass("text-white")
+    }
+
+    const taskDueDateField = $(taskCard).find('.form-control.hasDatePicker');
+    if (daysDiff < 0 || daysDiff <= 3) {
+        taskDueDateField.addClass("text-white");
+    } else {
+        taskDueDateField.removeClass("text-white");
+    }
+
+    if (task.status === "done") {
+        taskDueDateField.removeClass("text-white");
     }
 
     return taskCard;
@@ -65,7 +75,6 @@ function renderTaskList() {
         $(this).closest(".task-card").remove();
     });
 
-    // Destroy existing draggable behavior and reapply it to reset snapping behavior
     $(".draggable").draggable({
         snap: true,
         snapMode: "inner",
@@ -116,7 +125,6 @@ function handleDrop(event, ui) {
     const taskIndex = taskList.findIndex(task => task.id === taskId);
     const newStatus = event.target.id;
 
-    //Test log to see if it recognizes lane or not
     console.log("new Status", newStatus);
 
     if (taskIndex !== -1) {
@@ -128,7 +136,6 @@ function handleDrop(event, ui) {
         console.log("Current Status:", currentStatus);
         console.log("New Status:", taskList[taskIndex].status);
 
-        // Update the UI immediately after dropping the card
         renderTaskList();
     }
 }
@@ -139,7 +146,6 @@ $(document).ready(function () {
     $("#addTaskButton").click(handleAddTask);
     handleDeleteTask();
 
-    // Add event listeners for handling task drops into new status lanes
     $(".lane").droppable({
         accept: ".draggable",
         drop: handleDrop

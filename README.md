@@ -8,7 +8,7 @@ This repository contains the code for a one-page task board, where users can gen
 
 Cards that are three days or less away from their due date are styled yellow. Cards that are overdue are styled red. All other cards are styled white, with cards in the "Done" column automatically styled to white.
 
-This project utilizes JQuery and JQuery UI, and is styled primarily using Bootstrap.
+This project utilizes JQuery and JQuery UI, and is styled primarily with Bootstrap.
 
 ## Installation
 
@@ -21,12 +21,11 @@ To install, please clone this repository to your computer using the following st
 
 ## Usage
 
-To view this site, either visit the link <https://jacobmca.github.io/04-Personal-Blog/index.html> or open the Task-Board-Challenge/index.html file on any major browser from your computer.
+To view this site, either visit the link <https://jacobmca.github.io/Task-Board-Challenge/> or open the Task-Board-Challenge/index.html file on any major browser from your computer.
 
 ## Screenshots
 
-![Screenshot](assets/images/screenshot-1.png)
-![Screenshot](assets/images/screenshot-2.png)
+![Screenshot](assets/images/screenshot.png)
 
 ## Credits
 
