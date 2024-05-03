@@ -1,5 +1,5 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Create a function to generate a unique task id
@@ -10,7 +10,7 @@ function generateTaskId() {
 // Create a function to create a task card
 function createTaskCard(task) {
     let taskCard = `
-        <div class="task-card card mb-3" id="${task.id}">
+        <div class="task-card card mb-3 draggable" id="${task.id}">
             <div class="card-title strong mt-2">
                 <h4><strong>${task.taskTitle}</strong></h4>
             </div>
@@ -65,7 +65,7 @@ function renderTaskList() {
     });
 
     // Destroy existing draggable behavior and reapply it to reset snapping behavior
-    $(".lane .task-card").draggable({
+    $(".draggable").draggable({
         snap: true,
         snapMode: "inner",
         snapTolerance: 20,
@@ -110,13 +110,15 @@ function handleDeleteTask(){
 // Create a function to handle dragging and dropping a task into a new status lane
 function handleDrop(event, ui) {
     const draggedCard = ui.draggable;
+    console.log('draggedCard', draggedCard) //I'm not sure you're targeting the right element of the dragged card, something to look at
     const changedLaneId = $(this).attr("id");
     const taskId = draggedCard.attr("id");
     const taskIndex = taskList.findIndex(task => task.id === taskId);
-    const newStatus = event.target.id;
+    const newStatus = event.target.id; //you're not actually using this -- might be able to set task.status = newStatus or something if needed
 
-    //Test log to see if it recognizes lane or not
+    //Test log to see if it recognizes lane or not also testing if it knows new Status
     console.log("Task dropped. Lane ID:", changedLaneId);
+    console.log("new STatus", newStatus)
 
     if (taskIndex !== -1) {
         const currentStatus = taskList[taskIndex].status;
